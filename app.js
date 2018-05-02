@@ -2,8 +2,9 @@ console.log("Yelp Camp app v1 to node control");
 
 //Require pkgs
 const express = require("express");
-const  bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 const request = require("request");
+const mongo = require("mongoose");
 
 //Init express
 const app = express();
