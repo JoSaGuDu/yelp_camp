@@ -1,0 +1,23 @@
+<!-- include header -->
+<% include partials/header %>
+
+<section>
+  <h1>Add</h1>
+  <div class="linkContainer">
+    <a class="btnNav" href="http://localhost:8000/campgrounds">View all camps</a>
+  </div>
+
+    <h2>Add a new campground</h2>
+
+  <div class="formContainer">
+    <form action="/campgrounds" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" name="name" placeholder="Campground name">
+      <label for="name">Image URL:</label>
+      <input type="text" name="imgUrl" placeholder="Camp image Url">
+      <input class="btnAction" type="submit" name="submit" value="Add new campdround">
+    </form>
+</div>
+</section>
+<!-- include footer -->
+<% include partials/footer %>

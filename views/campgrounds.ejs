@@ -1,0 +1,17 @@
+<!-- include header -->
+<% include partials/header %>
+<h1>Campgrounds</h1>
+<div class="linkContainer" >
+  <a class="btnNav" href="http://localhost:8000/campgrounds/new">Add a new camp</a>
+</div>
+<section class="cardHolder">
+<% campgrounds.forEach(function(campground){ %>
+  <div class="card">
+    <div class="card-imgCont"><img class="card-img" src="<%= campground.image %>" alt="<%= campground.name %>" height="200" ></div>
+    <div class="card-labelCont"><h1 class="card-label"><%= campground.name %></h1></div>
+  </div>
+
+<%})%>
+</section>
+<!-- include footer -->
+<% include partials/footer %>
