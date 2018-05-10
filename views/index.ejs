@@ -1,2 +1,24 @@
-<h1>Yel Camp Coming soon..</h1>
-<a href="http://localhost:8000/campgrounds">View all the campgrounds</a>
+<!-- include header -->
+<% include partials/header %>
+<h1>Campgrounds</h1>
+<div class="linkContainer" >
+  <a class="btnNav" href="http://localhost:8000/index/new">Add a new camp</a>
+</div>
+<section class="cardHolder">
+<% campgrounds.forEach(function(campground){ %>
+  <div class="card">
+    <div class="card-imgCont">
+      <img class="card-img" src="<%= campground.image %>" alt="<%= campground.name %>" height="200" >
+    </div>
+    <div class="card-labelCont">
+      <p class="card-label"><%= campground.name %></p>
+    </div>
+    <div class="card-link">
+      <a class="btnNav" href="http://localhost:8000/index/<%= campground._id %>">More info</a>
+    </div>
+  </div>
+
+<%})%>
+</section>
+<!-- include footer -->
+<% include partials/footer %>

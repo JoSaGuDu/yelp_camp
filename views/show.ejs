@@ -1,0 +1,20 @@
+<!-- include header -->
+<% include partials/header %>
+
+<section>
+  <h1>Campground Details</h1>
+  <div class="linkContainer">
+    <a class="btnNav" href="http://localhost:8000/index">View all camps</a>
+  </div>
+    <div class="card-labelCont"><h1 class="card-label"><%= campground.name %></h1></div>
+  <div class="card__full">
+    <div class="card-imgCont">
+      <img class="card-img" src="<%= campground.image %>" alt="<%= campground.name %>" >
+    </div>
+    <div class="card-description">
+      <p class="card-description__text"><%= campground.description %></p>
+    
+  </div>
+</section>
+<!-- include footer -->
+<% include partials/footer %>

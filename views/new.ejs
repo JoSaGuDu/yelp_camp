@@ -4,20 +4,22 @@
 <section>
   <h1>Add</h1>
   <div class="linkContainer">
-    <a class="btnNav" href="http://localhost:8000/campgrounds">View all camps</a>
+    <a class="btnNav" href="http://localhost:8000/index">View all camps</a>
   </div>
 
     <h2>Add a new campground</h2>
 
   <div class="formContainer">
-    <form action="/campgrounds" method="POST">
-      <label for="name">Name:</label>
-      <input type="text" name="name" placeholder="Campground name">
-      <label for="name">Image URL:</label>
-      <input type="text" name="imgUrl" placeholder="Camp image Url">
+    <form action="/index" method="POST">
+      <!-- <label for="name">Name:</label> -->
+      <input class="form-input" type="text" name="name" placeholder="Campground name">
+     <!--  <label for="name">Image URL:</label> -->
+      <input class="form-input" type="text" name="imgUrl" placeholder="Campground's image url">
+      <!-- <label for="description">Description:</label> -->
+      <textarea class="form-input" name="description" placeholder="Write a campground's description here..."></textarea>
       <input class="btnAction" type="submit" name="submit" value="Add new campdround">
     </form>
-</div>
+  </div>
 </section>
 <!-- include footer -->
 <% include partials/footer %>

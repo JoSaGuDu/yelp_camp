@@ -31,18 +31,18 @@ header::after{
   font-size: 3em;
   letter-spacing: 2px;
 }
-.menu{
+.nav{
   display: flex;
   flex-wrap: wrap;
   list-style: none;
   margin: 0;
 }
 
-.menu-item{
+.nav-item{
   margin: 15px;;
 }
 
-.menu-item__text{
+.nav-item__text{
   color: white;
   font-family: 'Oswald', sans-serif;
   font-size: 1em;
@@ -51,6 +51,7 @@ header::after{
 
 a{
   color: #005397;
+  text-decoration: none;
 }
 
 h1{
@@ -62,7 +63,7 @@ h1{
   margin-top: 80px;
   min-width: 250px;
   text-align: center;
-  text-transform: uppercase; 
+  text-transform: uppercase;
 }
 
 h2{
@@ -71,22 +72,28 @@ h2{
   text-align: center;
 }
 
-input{
-  background-color: transparent;
-  border: unset;
-  border-bottom: 1px solid #FF5F64;
+input,
+textarea{
+  background-color: white;
+  border: 1px solid #FF5F64;
+  border-radius: 3px;
   font-size: large;
   width: 100%;
 }
 
-label{
+.form-input{
   font-size: large;
-  margin-top: 4%;
+  margin-top: 30px;
+}
+
+textarea{
+  display: block;
+  height: 150px;
 }
 
 .container{
   margin:0 auto;
-  min-height: calc(100vh - 130px);
+  min-height: calc(100vh - 220px);
   width: 100%;
 }
 
@@ -95,9 +102,10 @@ label{
   justify-content: center;
 }
 
-.cardHolder::before{
-  content: "campgrounds";
+.cardHolder::before,
+.formContainer::before{
   color: #c0c0c033;
+  content: "campgrounds";
   font-family: 'Monoton', cursive;
   font-size: 150px;
   left: 2%;
@@ -110,6 +118,9 @@ label{
   word-break: break-all;
   z-index: -100;
 }
+.formContainer::before{
+  content: "add campgrounds";
+}
 
 .cardHolder{
   align-items: center;
@@ -117,30 +128,56 @@ label{
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  
+
 }
 .card{
   border-radius: 5px;
-  /*box-shadow: 6px 5px 12px #FF5F64;*/
   box-sizing: border-box;
   margin-top: 10%;
   padding: 4%;
 }
 
+.card__full{
+  border-radius: 5px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 0;
+  padding: 0;
+  height: 20%;
+}
+
 .card-imgCont{
-  max-width: 320px;
   overflow: hidden;
+}
+
+.card-img{
+  max-width: 100%;
 }
 
 .card-label{
   color: #FF5F64;
   font-family: 'Oswald', sans-serif;
-  font-size: 1.5em;
+  font-size: 2.5em;
   letter-spacing: 2px;
-  margin: 5%;
-  max-width: 320px;
-  text-align: center;
-  text-transform: none;
+  margin-right: 4%;
+  margin-top: 5%;
+  text-align: right;
+}
+
+.card-description{
+  display: flex;
+  justify-content: center;
+}
+
+.card-description__text{
+  font-size: 1.2em;
+  line-height: 33px;
+  margin: 3% 6%;
+}
+.card-link{
+  display: flex;
+  justify-content: flex-end;
 }
 
 .formContainer{
@@ -148,11 +185,11 @@ label{
   background-color: rgba(242, 236, 223, 0.5);
   margin: 4% auto;
   max-width: 500px;
-  padding: 10% 4%;
+  padding: 15px;
   width: 100%;
 }
 
-.btnAction, 
+.btnAction,
 .btnNav{
   background-color: #FF5F64;
   border: none;
@@ -167,47 +204,50 @@ label{
 .btnNav{
   font-size: 1.2em;
   letter-spacing: 1px;
-  margin-top: 67px;
+  margin-top: 35px;
   padding: 5px 30px;
 }
 
 .btnAction:hover,
 .btnNav:hover,
-.menu-item__text:hover {
+.nav-item__text:hover {
   box-shadow: 1px 1px 2px darkgrey;
   color: #3895CC;
   text-decoration: none;
 }
-.menu-item__text:hover {
-   box-shadow:none;
+.nav-item__text:hover {
+  box-shadow:none;
 }
 
 footer{
+  align-content: center;
   background: #EFE8D8;
   color: #FF5F64;
+  display: flex;
+  flex-direction: column;
   height: 50px;
+  justify-content: center;
   left: 0;
   position: absolute;
   width: 100%;
  }
  .footer__credits{
-  margin: 0 auto;
-  position: relative;
   text-align: center;
-  top: 50%;
-  transform: translateY(-50%);
  }
 
-
+.credits__text{
+  font-size: 0.8em;
+}
 
  /* Media query */
 @media screen and (min-width: 600px) {
-  
+
   .logo{
     font-size: 9em;
   }
 
-  .cardHolder::before{
+  .cardHolder::before,
+  .formContainer::before{
     font-size: 11em;
     left: 5%;
     top: 200px;
@@ -230,22 +270,51 @@ footer{
     padding: 2%;
     width: 36%;
   }
+  .card-img{
+    max-width: 900px;
+  }
 
-  
+  .card-imgCont{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
 }
 
 @media screen and (min-width: 1024px) {
-  
-  .cardHolder::before{
+
+  .cardHolder::before,
+  .formContainer::before{
     text-align: right;
     top: 112px;
     width: 554px;
   }
 
-  .card{
-    width: 30%;
-    padding: 2%;
+  .card-imgCont{
+    margin-right: 4%;
+    order: 2;
+    width: 46%;
   }
 
-  
+  .card-description{
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-left: 4%;
+    width: 46%;
+  }
+
+  .card-description__text{
+    font-size: 1.1em;
+    margin-right: 14%;
+  }
+
+  .formContainer::before{
+    width: 524px;
+  }
+
+  .card{
+    padding: 2%;
+    width: 30%;
+  }
 }
