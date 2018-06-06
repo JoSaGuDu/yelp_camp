@@ -13,7 +13,17 @@
     </div>
     <div class="card-description">
       <p class="card-description__text"><%= campground.description %></p>
-    
+  </div>
+  <div class="comment">
+    <h2>Comments</h2>
+    <% campground.comments.forEach(function(comment){ %>
+      <div class="comment__full">
+        <div class="comment__content">
+          <p class="comment__text"><%= comment.text %></p>
+          <p class="comment__author"><%= comment.author %></p>
+        </div>
+      </div>
+    <%})%>
   </div>
 </section>
 <!-- include footer -->

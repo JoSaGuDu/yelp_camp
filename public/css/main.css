@@ -123,7 +123,7 @@ textarea{
 }
 
 .cardHolder{
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -178,6 +178,25 @@ textarea{
 .card-link{
   display: flex;
   justify-content: flex-end;
+}
+
+.comment{
+  background-color: #EFE8D84D;
+  margin: 15px auto 20px;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.comment__full{
+  border-bottom: 1px solid #FF5F64;
+  margin: 0 auto;
+  padding-bottom: 5px;
+  width: 90%;
+}
+
+.comment__author{
+  font-size: small;
+  text-align: right;
 }
 
 .formContainer{
@@ -258,6 +277,10 @@ footer{
     width: 50%;
   }
 
+  .comment{
+    width: 60%;
+  }
+
   .linkContainer{
     justify-content: flex-end;
     margin-right: 4%;
@@ -280,6 +303,11 @@ footer{
     width: 100%;
   }
 
+  .comment{
+    width: 40%;
+    margin: 30px auto 20px 56%;
+  }
+
 }
 
 @media screen and (min-width: 1024px) {
@@ -293,7 +321,6 @@ footer{
 
   .card-imgCont{
     margin-right: 4%;
-    order: 2;
     width: 46%;
   }
 

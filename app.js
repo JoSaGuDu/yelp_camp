@@ -1,16 +1,20 @@
-console.log("Yelp Camp app v1 to node control");
+/*jshint esversion: 6 */
+console.log('Yelp Camp app v1 to node control');
 
 //Require pkgs
-const express = require("express");
-const bodyParser = require("body-parser");
-const request = require("request");
-const mongoose = require("mongoose");
+const express = require('express');
+const bodyParser = require('body-parser');
+const request = require('request');
+const mongoose = require('mongoose');
+
+//reuquire the seeds file
+const seedDB = require('./seeds');
 
 //Init express
 const app = express();
 
 //Demand serving content of public file
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 //Demand the use of body-parser
 app.use(bodyParser.urlencoded({
@@ -18,44 +22,18 @@ app.use(bodyParser.urlencoded({
 }));
 
 //Set view engine
-app.set("view engine", "ejs");
+app.set('view engine', 'ejs');
+
+//Seed the database
+seedDB();
 
 //Connect mongoose
 mongoose.connect('mongodb://localhost/yelp_camp');
 
-//Schema setup
-const campgroundSchema = new mongoose.Schema({
-  name: String,
-  image: String,
-  description: String
-});
+//Schema and modelsetup
+const Comment = require('./models/comment');
+const Campground = require('./models/campground')
 
-//Compile the Schema into a model
-const Campground = mongoose.model("Campground", campgroundSchema);
-
-
-//test adding camp
-/*Campground.create({
-      name: "Banff National Park",
-      image: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Johnston_Canyon-Lower_Falls.jpg",
-      description: "Rocky Mountain peaks, turquoise glacial lakes, a picture-perfect mountain town and village, abundant wildlife and scenic drives come together in Banff National Park - Canada’s first national park and the flagship of the nation’s park system."
-}, function(error, campground){
-  if(error){
-    console.log(error);
-  } else {
-    console.log("New campground created!");
-    console.log(campground);
-  }
-});*/
-
-//Global variables
-
-/*//Temporary camps array
-const campgrounds = [
-        {name: "Banff National Park", image: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Johnston_Canyon-Lower_Falls.jpg"},
-        {name: "Glacier National Park", image: "https://upload.wikimedia.org/wikipedia/commons/7/7e/St_Mary_Lake.jpg"},
-        {name: "Riding Mountain National Park", image: "https://upload.wikimedia.org/wikipedia/commons/e/e6/Riding_Mountain_National_Park_Manitoba_Canada_%288%29.JPG"}
-];*/
 /*------------------------
           ROUTES
 ---------------------------*/
@@ -67,8 +45,7 @@ app.get("/", function(req, res) {
 
 //INDEX
 app.get("/index", function(req, res) {
-  //Get all the campgrounds from the temporary array
-  //res.render("index", {campgrounds: campgrounds});Replaced by the lookup to the database
+
 
   //Get all the campgrounds from the DB
   Campground.find({}, function(error, allCampgrounds) {
@@ -88,8 +65,7 @@ app.get("/index/new", function (req, res) {
 })
 
 //CREATE
-app.post("/index", function (req, res) { //Doesn't maters that the name of the route is the same because the method is diferent.
-  //get data from form and add to the campgrouds array
+app.post("/index", function (req, res) {
   const campName = req.body.name;
   const campImgUrl = req.body.imgUrl;
   const campDescription = req.body.description;
@@ -99,8 +75,7 @@ app.post("/index", function (req, res) { //Doesn't maters that the name of the r
     description: campDescription
   };
   console.log(newCamp);
-  //index.push(newCamp);Replaced by the Campground.create to the database
-  //
+
   //Create a new campground and save it to the DB.
   Campground.create(newCamp, function (error, newCampground) {
     if (error) {
@@ -114,7 +89,7 @@ app.post("/index", function (req, res) { //Doesn't maters that the name of the r
   });
 });
 
-//SHOW (remember this route must be declared after any other route like this /root/anything)
+//SHOW
 app.get("/index/:id", function (req, res) {
   const campId = req.params.id;
   Campground.findById(campId, function (error, foundCampground) {
@@ -122,8 +97,14 @@ app.get("/index/:id", function (req, res) {
     if (error) {
       console.log(error);
     } else {
-      res.render("show", {
-        campground: foundCampground
+      Campground.findById(campId).populate('comments').exec(function (err, foundCampground) {
+        if (err)console.log(err);
+        else {
+          console.log(foundCampground);
+          res.render('show', {
+            campground: foundCampground
+          });
+        }
       });
     }
   });
